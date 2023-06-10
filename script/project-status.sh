@@ -27,7 +27,7 @@ for metricObj in "${arrayMetrics[@]}"; do
     prepared_metric=$(echo "${metric^}" | tr "_" " ")
     table_body+="|${prepared_metric:1:-1}|${value:1:-1}"
     if [[ "$metric" == "\"security_hotspots_reviewed\"" ]] || [[ "$metric" == "\"duplicated_lines_density\"" ]] || [[ "$metric" == "\"coverage\"" ]]; then
-      table_body+="%"
+      table_body+=" %"
     fi
     table_body+="|\n"
   fi
