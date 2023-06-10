@@ -6,7 +6,7 @@ project_info="$(curl --silent --fail --show-error --user "${SONAR_TOKEN}": "${pr
 readarray -t arrayMetrics < <(jq -c '.component.measures[]' <<< "$project_info")
 title=
 table_head="|*Metric*|*Value*|"
-table_separator="|:-:|:-:|"
+table_separator="|:-|:-:|"
 table_body=
 
 for metricObj in "${arrayMetrics[@]}"; do
