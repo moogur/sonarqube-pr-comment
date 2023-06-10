@@ -4,7 +4,10 @@ projectInfoUrl="${SONAR_HOST_URL}/api/measures/component?component=${SONAR_PROJE
 project_info="$(curl --silent --fail --show-error --user "${SONAR_TOKEN}": "${projectInfoUrl}")"
 
 readarray -t arrayMetrics < <(jq -c '.component.measures[]' <<< "$project_info")
-result=
+title=
+table_head="|"
+table_separator="|"
+table_body="|"
 
 for metricObj in "${arrayMetrics[@]}"; do
   metric=$(jq -c '.metric' <<< "$metricObj")
@@ -19,17 +22,20 @@ for metricObj in "${arrayMetrics[@]}"; do
       prefix="💣"
     fi
 
-      result="$prefix Status: ${prepared_value%?}\n${result}"
+      title="$prefix Status: **${prepared_value%?}**"
   else
     prepared_metric=$(echo "${metric^}" | tr "_" " ")
-    result+="\n${prepared_metric:1:-1}: ${value:1:-1}"
+    table_head="${prepared_metric:1:-1}|"
+    table_separator+=":-:|"
+    table_body+="${value:1:-1}|"
   fi
 
 done
 
+result="$title\n\n$table_head\n$table_separator\n$table_body"
 echo "quality_check<<EOF" >> $GITHUB_OUTPUT
 
-if [[ -z $result ]]; then
+if [[ ${#arrayMetrics[@]} == 0 ]]; then
   echo "UNKNOWN ERROR" >> "$GITHUB_OUTPUT"
   echo "Message - $project_info" >> "$GITHUB_OUTPUT"
 else
