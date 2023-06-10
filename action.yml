@@ -11,10 +11,10 @@ inputs:
   sonar_token:
     description: "Token Project Sonar"
     required: true
-  sonar_projectkey:
+  sonar_project_key:
     description: "Name Project"
     required: true
-  github-token:
+  github_token:
     description: "GitHub Token"
     required: true
 outputs:
@@ -32,12 +32,12 @@ runs:
       env:
         SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
         SONAR_TOKEN: ${{ inputs.sonar_token }}
-        SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
+        SONAR_PROJECT_KEY: ${{ inputs.sonar_project_key }}
 
     - name: PR Comment
       uses: actions/github-script@v6
       with:
-        github-token: ${{inputs.github-token}}
+        github-token: ${{inputs.github_token}}
         script: |
           github.rest.issues.createComment({
             issue_number: ${{ github.event.number }},
