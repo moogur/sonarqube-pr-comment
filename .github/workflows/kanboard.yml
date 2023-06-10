@@ -7,7 +7,9 @@ on:
 
 jobs:
   kanboard:
-    uses: moogur/all-workflows/.github/workflows/kanboard_single_branch.yml@master
+    uses: moogur/all-workflows/.github/workflows/kanboard.yml@master
     secrets: inherit
     with:
       kanboard_columns: "69,70,71,72,73"
+      project_type: "single_branch"
+      event_type: "push"
