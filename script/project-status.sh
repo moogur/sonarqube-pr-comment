@@ -25,7 +25,7 @@ for metricObj in "${arrayMetrics[@]}"; do
       title="$prefix Status: **${prepared_value%?}**"
   else
     prepared_metric=$(echo "${metric^}" | tr "_" " ")
-    table_head="${prepared_metric:1:-1}|"
+    table_head+="${prepared_metric:1:-1}|"
     table_separator+=":-:|"
     table_body+="${value:1:-1}|"
   fi
