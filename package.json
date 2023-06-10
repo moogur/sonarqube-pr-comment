@@ -1,0 +1,26 @@
+{
+  "name": "sonarqube-pr-comment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "16"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moogur/sonarqube-pr-comment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moogur/sonarqube-pr-comment/issues"
+  },
+  "homepage": "https://github.com/moogur/sonarqube-pr-comment#readme"
+}

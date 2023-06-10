@@ -2,8 +2,8 @@ name: "SonarQube Pull Request Comment"
 description: >
   Check if a project / analysis passed the Quality Gate check
 branding:
-  icon: 'git-pull-request'
-  color: 'green'
+  icon: "git-pull-request"
+  color: "green"
 inputs:
   sonar_host_url:
     description: "SonarQube Url"
@@ -20,8 +20,8 @@ inputs:
 outputs:
   quality_check:
     description: >
-      The resulting Status SonarQube 
-      
+      The resulting Status SonarQube
+
 runs:
   using: "composite"
   steps:
@@ -29,11 +29,11 @@ runs:
       id: check
       shell: bash
       run: $GITHUB_ACTION_PATH/script/project-status.sh
-      env: 
-       SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
-       SONAR_TOKEN: ${{ inputs.sonar_token }}
-       SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
-     
+      env:
+        SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
+        SONAR_TOKEN: ${{ inputs.sonar_token }}
+        SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
+
     - name: PR Comment
       uses: actions/github-script@v6
       with:
@@ -45,4 +45,3 @@ runs:
             repo: context.repo.repo,
             body: `${{ steps.check.outputs.quality_check }}`
           })
-
