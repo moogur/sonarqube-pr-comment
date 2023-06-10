@@ -5,9 +5,9 @@ project_info="$(curl --silent --fail --show-error --user "${SONAR_TOKEN}": "${pr
 
 readarray -t arrayMetrics < <(jq -c '.component.measures[]' <<< "$project_info")
 title=
-table_head="|"
-table_separator="|"
-table_body="|"
+table_head="|*Metric*|*Value*|"
+table_separator="|:-:|:-:|"
+table_body=
 
 for metricObj in "${arrayMetrics[@]}"; do
   metric=$(jq -c '.metric' <<< "$metricObj")
@@ -25,9 +25,7 @@ for metricObj in "${arrayMetrics[@]}"; do
       title="$prefix Status: **${prepared_value%?}**"
   else
     prepared_metric=$(echo "${metric^}" | tr "_" " ")
-    table_head+="${prepared_metric:1:-1}|"
-    table_separator+=":-:|"
-    table_body+="${value:1:-1}|"
+    table_body+="|${prepared_metric:1:-1}|${value:1:-1}|\n"
   fi
 
 done
