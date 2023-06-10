@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-projectInfoUrl="${SONAR_HOST_URL}/api/measures/component?component=${SONAR_PROJECT_KEY}&metricKeys=bugs,vulnerabilities,security_hotspots,security_hotspots_reviewed,code_smells,coverage,lines_to_cover,quality_gate_details,duplicated_lines_density,lines"
+projectInfoUrl="${SONAR_HOST_URL}/api/measures/component?component=${SONAR_PROJECT_KEY}&metricKeys=bugs,vulnerabilities,security_hotspots,security_hotspots_reviewed,code_smells,coverage,lines_to_cover,quality_gate_details,duplicated_lines_density,lines&branch=${GIT_BRANCH}"
 project_info="$(curl --silent --fail --show-error --user "${SONAR_TOKEN}": "${projectInfoUrl}")"
 
 readarray -t arrayMetrics < <(jq -c '.component.measures[]' <<< "$project_info")

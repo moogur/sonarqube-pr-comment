@@ -17,6 +17,10 @@ inputs:
   github_token:
     description: "GitHub Token"
     required: true
+  git_branch:
+    description: "Current git branch"
+    required: false
+    default: "master"
 outputs:
   quality_check:
     description: >
@@ -33,6 +37,7 @@ runs:
         SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
         SONAR_TOKEN: ${{ inputs.sonar_token }}
         SONAR_PROJECT_KEY: ${{ inputs.sonar_project_key }}
+        GIT_BRANCH: ${{ inputs.git_branch }}
 
     - name: PR Comment
       uses: actions/github-script@v6
