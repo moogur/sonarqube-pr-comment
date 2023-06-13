@@ -3,7 +3,7 @@ name: Kanboard
 on:
   push:
     branches:
-      - "**"
+      - master
 
 jobs:
   kanboard:
